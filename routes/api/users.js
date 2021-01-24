@@ -29,6 +29,7 @@ router.post("/register", (req, res) => {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
+        data: "",
       });
 
       // Hash password before saving in database
@@ -75,6 +76,7 @@ router.post("/login", (req, res) => {
         const payload = {
           id: user.id,
           name: user.name,
+          data: user.data,
         };
 
         // Sign token
@@ -100,4 +102,12 @@ router.post("/login", (req, res) => {
   });
 });
 
+router.post("/update/:id", (req, res) => {
+  const data = req.body.data;
+  User.updateOne({ _id: req.params.id }, { $set: { data: data } }, (err) => {
+    if (!err) {
+      return res.json({ status: "success", message: "data updated" });
+    }
+  });
+});
 module.exports = router;

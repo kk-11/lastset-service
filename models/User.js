@@ -21,7 +21,6 @@ const UserSchema = new Schema({
   },
   data: {
     type: String,
-    required: true,
   },
 });
 
